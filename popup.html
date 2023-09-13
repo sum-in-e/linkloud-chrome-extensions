@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Linkloud</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: "Pretendard", sans-serif;
+      }
+      body {
+        margin: 0;
+        background-color: #262626;
+        color: #f4f4f5;
+      }
+      button {
+        width: 100%;
+        border-radius: 15px;
+        border: none;
+        font-weight: 500;
+        outline: none;
+        cursor: pointer;
+        color: #f4f4f5;
+      }
+      p {
+        margin: 0;
+      }
+      input,
+      textarea {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        resize: none;
+      }
+      section {
+        display: none;
+        width: 300px;
+        min-height: 400px;
+        height: 100%;
+        padding: 20px 30px 30px 20px;
+      }
+      .subtext {
+        color: #d4d4d8;
+      }
+      /* 에러 컨테이너 style */
+      #error-section {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        word-break: keep-all;
+        white-space: pre-wrap;
+      }
+      /* 로딩 컨테이너 style */
+      #loading-section {
+        justify-content: center;
+        align-items: center;
+      }
+      #loading-section i {
+        font-size: 25px;
+      }
+      /* 로그인 컨테이너 style */
+      #need-login-section {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #need-login-section img {
+        margin-bottom: 10px;
+        width: 110px;
+        height: auto;
+      }
+      #need-login-section button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #000dff;
+      }
+      #need-login-section button:hover {
+        background-color: #333dff;
+      }
+      /* 링크 정보 컨테이너 style */
+      #link-info-section {
+        overflow: scroll;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #link-image {
+        width: 100%;
+        aspect-ratio: 1.91 / 1;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      #link-url {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 0;
+        color: #d4d4d8;
+      }
+      #editable-field-container,
+      #kloud-selector-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      #link-description {
+        height: 50px;
+      }
+      #kloud-selector {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px 20px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid gray;
+        background-color: transparent;
+      }
+      #kloud-selector:hover {
+        background-color: #626262a6;
+      }
+      #selected-kloud-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: start;
+        width: 85%;
+      }
+      #kloud-selector i {
+        font-size: 12px;
+      }
+      #save-button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        font-weight: 500;
+        background-color: #000dff;
+      }
+      #save-button:hover {
+        background-color: #333dff;
+      }
+      #save-button:disabled {
+        cursor: not-allowed;
+        background-color: #cccccc;
+      }
+
+      #save-button:disabled:hover {
+        cursor: not-allowed;
+        background-color: #cccccc;
+      }
+      #label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #d4d4d8;
+      }
+      /* 클라우드 리스트 컨테이너 style */
+      #kloud-list-section {
+        overflow: scroll;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #top-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      #create-kloud-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      #kloud-input-error {
+        color: #ef4444;
+      }
+      #kloud-title-with-count {
+        margin: 0;
+        margin-bottom: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #d4d4d8;
+      }
+      #kloud-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-inline-start: 0;
+      }
+      .selected-kloud {
+        background-color: #4b5563;
+      }
+      #kloud-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: inherit;
+        padding: 10px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #kloud-item:hover {
+        background-color: #626262a6;
+      }
+      #kloud-item-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 85%;
+      }
+      #close-button {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        font-size: 20px;
+        color: #f4f4f5;
+        background: transparent;
+      }
+      #close-button:hover {
+        color: #d4d4d8;
+      }
+    </style>
+  </head>
+  <body>
+    <!--  로딩중 UI  -->
+    <section id="loading-section">
+      <i class="fas fa-spinner fa-spin"></i>
+    </section>
+    <!--  에러 UI  -->
+    <section id="error-section">
+      <h2>🥲</h2>
+      <p id="error-text" class="subtext">
+        에러로 인해 데이터를 불러오지 못했습니다. 다시 시도해 주세요.
+      </p>
+    </section>
+    <!--  로그인 필요 UI  -->
+    <section id="need-login-section">
+      <img src="/public/images/logo_v.png" alt="linkloud_logo" />
+      <h2>로그인이 필요합니다!</h2>
+      <p class="subtext">
+        링클라우드 크롬 익스텐션으로 간편하게 링크를 저장해 보세요!
+      </p>
+      <button id="login-button">로그인</button>
+    </section>
+    <!--  링크 정보 UI  -->
+    <section id="link-info-section">
+      <h2>링크 추가하기</h2>
+      <img
+        id="link-image"
+        src="https://res.cloudinary.com/dqcgvbbv7/image/upload/f_auto,q_auto/v1/linkloud/linkloud_thumbnail_cp3joj"
+        alt="Link Thumbnail"
+      />
+      <p id="link-url"></p>
+      <div id="editable-field-container">
+        <label id="label">제목</label>
+        <input id="link-title" placeholder="제목을 필수로 입력해 주세요!" />
+      </div>
+      <div id="editable-field-container">
+        <label id="label">내용</label>
+        <textarea
+          id="link-description"
+          placeholder="어떤 내용이 담긴 링크인가요?👀"
+        ></textarea>
+      </div>
+      <div id="kloud-selector-container">
+        <label id="label">클라우드</label>
+        <button id="kloud-selector">
+          <p id="selected-kloud-text"></p>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+      <button id="save-button">저장하기</button>
+    </section>
+    <!--  클라우드 리스트 UI  -->
+    <section id="kloud-list-section">
+      <div id="top-container">
+        <button id="close-button">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2>클라우드 선택하기</h2>
+      </div>
+      <div id="create-kloud-container">
+        <input
+          id="kloud-input"
+          placeholder="생성할 클라우드를 50자 이내로 입력해 주세요."
+        />
+        <p id="kloud-input-error"></p>
+      </div>
+      <div>
+        <h4 id="kloud-title-with-count"></h4>
+        <ul id="kloud-list">
+          <!-- kloud item -->
+        </ul>
+      </div>
+    </section>
+    <script src="popup.js"></script>
+  </body>
+</html>
