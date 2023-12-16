@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Linkloud",
   "description": "현재 탭의 링크를 쉽고 빠르게 링클라우드에 저장할 수 있도록 도와줍니다!",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "permissions": ["activeTab", "tabs", "cookies"],
   "host_permissions": ["https://linkloud.xyz/", "http://localhost:3000/"],
   "icons": {
