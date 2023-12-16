@@ -77,7 +77,7 @@ chrome.runtime.sendMessage({ action: "checkLogin" }, function (response) {
  */
 loginButton.addEventListener("click", function () {
   chrome.tabs.create({
-    url: `https://linkloud.xyz/login?return_to=/chrome-extentions`,
+    url: `https://linkloud.xyz/login?return_to=/chrome-extensions`,
   });
 });
 
