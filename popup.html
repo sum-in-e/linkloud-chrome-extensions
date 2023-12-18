@@ -165,6 +165,11 @@
         font-weight: 500;
         color: #d4d4d8;
       }
+      #create-link-error-text {
+        display: none;
+        color: #ef4444;
+        margin-top: 3px;
+      }
       /* 클라우드 리스트 컨테이너 style */
       #kloud-list-section {
         overflow: scroll;
@@ -280,7 +285,12 @@
           <i class="fas fa-chevron-down"></i>
         </button>
       </div>
-      <button id="save-button">저장하기</button>
+      <div>
+        <button id="save-button">저장하기</button>
+        <p id="create-link-error-text" class="subtext">
+          링크 저장에 실패하였습니다. 다시 시도해 주세요.
+        </p>
+      </div>
     </section>
     <!--  클라우드 리스트 UI  -->
     <section id="kloud-list-section">

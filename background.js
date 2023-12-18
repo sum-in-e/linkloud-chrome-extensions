@@ -145,7 +145,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   // * 링크 추가하기
   if (request.action === "createLink") {
-    const { url, title, description, thumbnailUrl, kloudId } = request;
+    const { url, title, description, thumbnailUrl, isFollowing, kloudId } =
+      request;
 
     const createLink = async () => {
       const response = await fetch(`${BASE_URL}/link`, {
@@ -159,6 +160,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           title,
           description,
           thumbnailUrl,
+          isFollowing,
           kloudId,
         }),
       });

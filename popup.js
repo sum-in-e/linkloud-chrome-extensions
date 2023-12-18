@@ -18,6 +18,7 @@ const linkDescription = document.getElementById("link-description");
 const selecteKloudText = document.getElementById("selected-kloud-text");
 const kloudSelector = document.getElementById("kloud-selector");
 const saveButton = document.getElementById("save-button");
+const createLinkErrorText = document.getElementById("create-link-error-text");
 
 // 클라우드 리스트 Elements
 const kloudListSection = document.getElementById("kloud-list-section");
@@ -205,6 +206,7 @@ saveButton.addEventListener("click", function () {
     url: linkURL.innerText,
     title: linkTitle.value,
     description: linkDescription.value,
+    isFollowing: false,
     kloudId,
   };
 
@@ -212,7 +214,7 @@ saveButton.addEventListener("click", function () {
     { action: "createLink", ...linkData },
     function (response) {
       if (response.error) {
-        alert(response.error);
+        createLinkErrorText.style.display = "block";
       } else {
         chrome.runtime.sendMessage(
           { action: "showBadge" },
