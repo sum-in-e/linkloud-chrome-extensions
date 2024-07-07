@@ -4,5 +4,3 @@
 
 ![링클라우드 랜딩페이지 이미지](./public/images/linkloud_chrome_extension.png)
 
-> Explore [Linkloud](https://linkloud.xyz)  
-> Explore [Chrome Extension](https://chromewebstore.google.com/detail/linkloud/ccmcdofnhlnnhjihdlhnclbnpmimilkc)
